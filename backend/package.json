@@ -1,7 +1,7 @@
 {
-  "name": "task-manager-backend",
-  "version": "1.0.0",
-  "description": "Backend for Task Manager App",
+  "name": "cloud-file-manager-manager-backend",
+  "version": "1.0.2",
+  "description": "Backend for Cloud File manager App",
   "main": "server.js",
   "scripts": {
     "test": "mocha",
@@ -28,6 +28,6 @@
     "nodemon": "^2.0.15",
     "sinon": "^19.0.5"
   },
-  "author": "Task Manager Team",
+  "author": "Hari Govind",
   "license": "ISC"
 }

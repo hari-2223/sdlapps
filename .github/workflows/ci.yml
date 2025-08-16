@@ -41,6 +41,13 @@ jobs:
       
     - run: pm2 stop all
 
+    - name: Create and set permissions for Uploads Directory
+      run: |
+       
+        mkdir -p ./backend/uploads
+        sudo chown -R ubuntu:ubuntu ./backend/uploads
+        sudo chmod -R 755 ./backend/uploads
+
     # Install dependencies for backend
     - name: Install Backend Dependencies
       working-directory: ./backend

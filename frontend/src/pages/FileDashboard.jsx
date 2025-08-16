@@ -34,13 +34,45 @@ const FileDashboard = () => {
     }, [fetchFiles]);
 
     // The onUploadSuccess prop directly calls stable fetchFiles function.
+
+    const handleRenameFile = async (fileId, newName) => {
+        try {
+            const response = await axiosInstance.put(`/api/files/${fileId}`, { newName }, {
+                headers: { Authorization: `Bearer ${user.token}` }
+            });
+            // Updates state to give the user instant feedback without a full reload
+            setFiles(files.map(file => file._id === fileId ? response.data.file : file));
+            alert('File renamed successfully!');
+        } catch (error) {
+            alert('Failed to rename file.');
+        }
+    };
+
+    const handleDeleteFile = async (fileId) => {
+        // Use browser confirm dialog for safety
+        if (!window.confirm('Are you sure you want to permanently delete this file?')) {
+            return;
+        }
+    
+        try {
+            await axiosInstance.delete(`/api/files/${fileId}`, {
+                headers: { Authorization: `Bearer ${user.token}` }
+            });
+            // Updates state to give the user instant feedback
+            setFiles(files.filter(file => file._id !== fileId));
+            alert('File deleted successfully!');
+        } catch (error) {
+            alert('Failed to delete file.');
+        }
+    };
+    
    
     return (
         <div className="container mx-auto p-4">
             <h1 className="text-3xl font-bold mb-6">My Cloud Storage</h1>
             <FileUpload onUploadSuccess={fetchFiles} />
             <div className="mt-8">
-                <FileList files={files} isLoading={isLoading} />
+                <FileList files={files} isLoading={isLoading} onRename={handleRenameFile} onDelete={handleDeleteFile} />
             </div>
         </div>
     );

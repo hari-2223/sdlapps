@@ -7,6 +7,6 @@ const upload = require('../middleware/uploadMiddleware');
 // When POST request comes to /upload, this order
 router.post('/upload', protect, upload, uploadFile);
 router.get('/', protect, getFiles);
-router.put('/:id', authMiddleware, renameFile);
+router.put('/:id', protect, renameFile);
 
 module.exports = router;

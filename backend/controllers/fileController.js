@@ -49,25 +49,21 @@ exports.renameFile = async (req, res) => {
             return res.status(404).json({ message: 'File not found' });
         }
 
-        // Constructing the old and new file paths
-        const oldPath = file.path;
+        //Get file extension
         const fileExtension = path.extname(file.originalName);
-        const newOriginalName = newName.trim() + fileExtension;
-        const newPath = path.join(path.dirname(oldPath), path.basename(oldPath, path.extname(oldPath)) + fileExtension); // Keep stored name but update original
-        const newStoredName = path.basename(oldPath);
-        const newFilePath = path.join(path.dirname(oldPath), newStoredName);
-
+        
         
         // This just updates the 'originalName' in the database. 
         // only changing the user-facing name to prevent complex logic
         
-        file.originalName = newName.trim() + path.extname(file.originalName);
-        await file.save();
+        file.originalName = newName.trim() + fileExtension;
 
-        res.json({ message: 'File renamed successfully', file });
+        const updatedFile = await file.save();
+
+        res.json({ message: 'File renamed successfully', file: updatedFile });
 
     } catch (error) {
-        console.error(error);
+        console.error('RENAME FILE ERROR: ', error);
         res.status(500).json({ message: 'Server error while renaming file.' });
     }
 };

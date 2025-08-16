@@ -47,6 +47,24 @@ const FileDashboard = () => {
             alert('Failed to rename file.');
         }
     };
+
+    const handleDeleteFile = async (fileId) => {
+        // Use browser confirm dialog for safety
+        if (!window.confirm('Are you sure you want to permanently delete this file?')) {
+            return;
+        }
+    
+        try {
+            await axiosInstance.delete(`/api/files/${fileId}`, {
+                headers: { Authorization: `Bearer ${user.token}` }
+            });
+            // Updates state to give the user instant feedback
+            setFiles(files.filter(file => file._id !== fileId));
+            alert('File deleted successfully!');
+        } catch (error) {
+            alert('Failed to delete file.');
+        }
+    };
     
    
     return (
@@ -54,7 +72,7 @@ const FileDashboard = () => {
             <h1 className="text-3xl font-bold mb-6">My Cloud Storage</h1>
             <FileUpload onUploadSuccess={fetchFiles} />
             <div className="mt-8">
-                <FileList files={files} isLoading={isLoading} onRename={handleRenameFile} />
+                <FileList files={files} isLoading={isLoading} onRename={handleRenameFile} onDelete={handleDeleteFile} />
             </div>
         </div>
     );

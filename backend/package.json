@@ -1,6 +1,6 @@
 {
   "name": "cloud-file-manager-manager-backend",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Backend for Cloud File manager App",
   "main": "server.js",
   "scripts": {

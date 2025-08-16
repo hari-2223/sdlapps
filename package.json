@@ -1,6 +1,6 @@
 {
   "name": "cloud-file-manager",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Fullstack Cloud file Application",
   "scripts": {
     "install-all": "npm install && npm install --prefix backend && npm install --prefix frontend",

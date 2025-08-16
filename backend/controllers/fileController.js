@@ -67,3 +67,33 @@ exports.renameFile = async (req, res) => {
         res.status(500).json({ message: 'Server error while renaming file.' });
     }
 };
+
+
+//   Delete a file
+// route   DELETE /api/files/:id
+exports.deleteFile = async (req, res) => {
+    try {
+        const file = await File.findById(req.params.id);
+
+        //  Safely ensure the file exists and the user owns it
+        if (!file || file.userId.toString() !== req.user.id) {
+            return res.status(404).json({ message: 'File not found' });
+        }
+
+        // To delete the actual file from the server's disk
+        fs.unlink(file.path, async (err) => {
+            if (err) {
+                console.error("Failed to delete file from disk:", err);
+                // Even if file deletion fails, removes DB record 
+            }
+            
+            //  Delete the record from the database
+            await file.remove();
+            res.json({ message: 'File deleted successfully' });
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error while deleting file.' });
+    }
+};

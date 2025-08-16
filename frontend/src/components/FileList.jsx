@@ -2,7 +2,7 @@
 // IMPORTANT: change this to EC2 instance's public IP
 const API_BASE_URL = 'http://3.106.222.124:5001';
 
-const FileList = ({ files, isLoading, onRename }) => {
+const FileList = ({ files, isLoading, onRename, onDelete }) => {
     if (isLoading) {
         return <p className="text-center mt-8">Loading files...</p>;
     }
@@ -45,7 +45,12 @@ const FileList = ({ files, isLoading, onRename }) => {
                             >
                                 Rename
                             </button>
-                            {/* Delete button to be added here */}
+                            <button
+                                onClick={() => onDelete(file._id)}
+                                className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm font-semibold"
+                                >
+                                Delete
+                            </button>
                         </div>
                     </li>
                 ))}

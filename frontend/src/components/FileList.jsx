@@ -1,6 +1,6 @@
 // The base URL of backend, needed for download links
 // IMPORTANT: change this to EC2 instance's public IP
-const API_BASE_URL = 'http://13.55.223.48:5001';
+const API_BASE_URL = 'http://54.253.146.37:5001';
 
 const FileList = ({ files, isLoading, onRename, onDelete }) => {
     if (isLoading) {

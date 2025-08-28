@@ -12,7 +12,7 @@ const Navbar = () => {
 
   return (
     <nav className="bg-blue-600 text-white p-4 flex justify-between items-center">
-      <Link to="/" className="text-2xl font-bold">Cloud File Manager</Link>
+      <Link to="/" className="text-2xl font-bold">Cloud File Manager 2.0</Link>
       <div>
         {user ? (
           <>
